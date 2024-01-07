@@ -1,5 +1,4 @@
-import {createContext, useReducer} from "react";
-import {photos} from "./data";
+import { createContext, useReducer } from "react";
 
 const initialState = {
     input: {
@@ -8,6 +7,7 @@ const initialState = {
         title: null,
     },
     items: [],
+    userItems: [],
     isVisible: false
 }
 
@@ -19,9 +19,6 @@ const setInputs = (event, input) => {
             path: null
         }
     }
-
-    console.log(event.target.type)
-
 
     event.preventDefault()
 
@@ -44,9 +41,17 @@ const setInputs = (event, input) => {
 const reducer = (state, action) => {
     switch (action.type) {
         case 'setItems':
+            const items = action.payload.items
             return {
                 ...state,
-                items: action.payload.items
+                items,
+                count: items.length,
+            }
+        case 'setUserItems':
+            const userItems = action.payload.items
+            return {
+                ...state,
+                userItems
             }
         case 'setItem':
             return {
@@ -66,7 +71,7 @@ const reducer = (state, action) => {
         case 'setInput':
             return {
                 ...state,
-                input: setInputs(action.payload.event, state.input)
+                input: setInputs(action?.payload?.event, state.input)
             }
     }
 }

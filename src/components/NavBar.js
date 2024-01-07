@@ -1,13 +1,22 @@
+import { useAuthContext } from "../context/AuthContext";
+import { memo } from "react";
+import {Link} from "react-router-dom";
+
 function Navigation() {
+    const { currentUser } = useAuthContext()
+
     return (
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="#">Home</a>
+                    <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                 </li>
-                <li className="nav-item">
-                    <a className="nav-link" href="#">Link</a>
-                </li>
+                { currentUser && <li className="nav-item">
+                    <Link className="nav-link" to="my-photos">My photos</Link>
+                </li>}
+            </ul>
+            <SearchForm/>
+            <ul className="navbar-nav mb-2 mb-lg-0">
                 <li className="nav-item dropdown">
                     <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
@@ -15,11 +24,7 @@ function Navigation() {
                     </a>
                     <Dropdown/>
                 </li>
-                <li className="nav-item">
-                    <a className="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
             </ul>
-            <SearchForm/>
         </div>
     )
 }
@@ -34,16 +39,27 @@ function SearchForm() {
 }
 
 function Dropdown() {
+    const { currentUser } = useAuthContext()
     return (
-        <ul className="dropdown-menu">
-            <li><a className="dropdown-item" href="#">Action</a></li>
-            <li><a className="dropdown-item" href="#">Another action</a></li>
-            <li>
+        <ul className="dropdown-menu login-dropdown-menu">
+            { currentUser && <>
+                <li><a className="dropdown-item" href="#">{currentUser.displayName}</a></li><li>
                 <hr className="dropdown-divider"/>
             </li>
-            <li><a className="dropdown-item" href="#">Something else here</a></li>
+            </> }
+            <LoginButton/>
         </ul>
     );
+}
+
+function LoginButton() {
+    const { currentUser, login, logout } = useAuthContext()
+
+    if (currentUser) {
+        return (<button className="btn btn-primary ml-2" onClick={logout}>Log Out</button>)
+    }
+
+    return (<button className="btn btn-primary ml-2" onClick={login}>Log In</button>)
 }
 function Navbar() {
     return (
@@ -60,4 +76,11 @@ function Navbar() {
         </nav>
     );
 }
-export default Navbar;
+
+const MemoizedNavbar = memo(Navbar, (prevProps, nextProps) => {
+    if (prevProps) {
+        return true; // props are equal
+    }
+    return false; // props are not equal -> update the component
+})
+export default MemoizedNavbar;

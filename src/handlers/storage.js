@@ -8,7 +8,7 @@ const Storage = {
                 const mediaRef = ref(storage, `images/${media.title}`)
 
                 uploadBytes(mediaRef, media.file).then(snapshot => {
-                    resolve({ path: snapshot.metadata.fullPath, name: media.title})
+                    resolve({ path: snapshot.metadata.fullPath, name: media.title })
                 })
 
             } catch (e) {

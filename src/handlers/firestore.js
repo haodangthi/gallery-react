@@ -1,30 +1,46 @@
-import { doc, setDoc, serverTimestamp, getDocs, collection } from "firebase/firestore";
+import { doc, setDoc, serverTimestamp, getDocs, collection, where, query } from "firebase/firestore";
 
 import db from '../lib/firebase.config'
+export const addImage  = (inputs, collectionName) => {
+    const randomIndex = Math.floor(Math.random() * 1000000000)
 
-const Firestore = {
-    writeDoc: (inputs, collectionName) => {
-        return new Promise(async resolve => {
-            const randomIndex = Math.floor(Math.random() * 1000000000)
+    const docRef = doc(db, collectionName, `${randomIndex}`);
 
-            const docRef = doc(db, collectionName, `${randomIndex}`);
-
-            await setDoc(docRef , { title: inputs.title, path: inputs.path , createdAt: serverTimestamp() });
-            resolve('new doc successfully inserted')
-        })
-    },
-    getDoc: () => {
-        return new Promise(async resolve => {
-            const docs = []
-
-            const snapshots = await getDocs(collection(db, "stocks"))
-
-            snapshots.forEach(doc => {
-                const document = {...doc.data()}
-                docs.push(document)
-            })
-            resolve(docs)
-        })
-    }
+    return setDoc(
+        docRef ,
+        {
+            title: inputs.title,
+            path: inputs.path ,
+            userId: inputs.userId ,
+            createdAt: serverTimestamp()
+        }
+    );
 }
-export default Firestore
+
+export const getImages = () => {
+    return getDocs(collection(db, "stocks")).then(snapshots => {
+        const docs = []
+
+        snapshots.forEach(doc => {
+            const document = {...doc.data(), id: doc.id}
+            docs.push(document)
+        })
+
+        return docs
+    })
+}
+
+export const getImagesById = (userId) => {
+    const queryName = query(collection(db, "stocks"), where('userId', '==', userId))
+
+    return getDocs(queryName).then(snapshots => {
+        const docs = []
+
+        snapshots.forEach(doc => {
+            const document = {...doc.data()}
+            docs.push(document)
+        })
+
+        return docs
+    })
+}
