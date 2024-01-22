@@ -1,5 +1,5 @@
-import {memo, useContext, useMemo} from "react";
-import {Context} from "../context";
+import { memo, useContext, useMemo } from "react";
+import { Context } from "../context/context";
 import Storage from '../handlers/storage'
 import { addImage, getImages } from "../handlers/firestore";
 import { Preview } from "./ui/Preview";

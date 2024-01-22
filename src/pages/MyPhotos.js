@@ -1,7 +1,7 @@
 import {useAuthContext} from "../context/AuthContext";
 import {useContext, useEffect, useMemo} from "react";
 import { getImagesById} from "../handlers/firestore";
-import {Context} from "../context";
+import { Context } from "../context/context";
 import List from "../components/List";
 
 export const MyPhotos = () => {

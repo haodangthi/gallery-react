@@ -1,6 +1,6 @@
 import UploadForm from "../components/Upload";
 import { useContext, useEffect } from "react";
-import { Context } from "../context";
+import { Context } from "../context/context";
 import { getImages } from "../handlers/firestore";
 import { useAuthContext } from "../context/AuthContext";
 import List from "../components/List";

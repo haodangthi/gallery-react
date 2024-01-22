@@ -1,5 +1,5 @@
 import {useContext, useEffect, useState} from "react";
-import {Context} from "../context";
+import { Context } from "../context/context";
 import {useDebounce} from "../hooks/useDebounce";
 
 export function SearchForm() {
