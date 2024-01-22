@@ -7,8 +7,10 @@ const initialState = {
         title: null,
     },
     items: [],
+    shownItems: [],
     userItems: [],
-    isVisible: false
+    isVisible: false,
+    searchFilter: ''
 }
 
 const setInputs = (event, input) => {
@@ -41,17 +43,27 @@ const setInputs = (event, input) => {
 const reducer = (state, action) => {
     switch (action.type) {
         case 'setItems':
-            const items = action.payload.items
+            const filteredItems = (action.payload?.items || state.items).filter(item => item.title.includes(state.searchFilter))
+
             return {
                 ...state,
-                items,
-                count: items.length,
+                items: action.payload?.items || state.items,
+                shownItems: filteredItems
+            }
+        case 'setSearchFilter':
+            const searchFilter = action.payload.filter
+
+            return {
+                ...state,
+                searchFilter,
             }
         case 'setUserItems':
-            const userItems = action.payload.items
+            const filteredUserItems = (action.payload?.items || state.userItems).filter(item => item.title.includes(state.searchFilter))
+
             return {
                 ...state,
-                userItems
+                userItems: action.payload?.items || state.userItems,
+                shownItems: filteredUserItems
             }
         case 'setItem':
             return {

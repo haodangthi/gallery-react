@@ -1,4 +1,4 @@
-import {useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function ImagePage() {
     const { state: item } = useLocation()

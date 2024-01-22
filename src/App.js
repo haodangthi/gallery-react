@@ -1,13 +1,12 @@
 import './App.css';
 import { Layout } from "./components/Layout";
-import Gallery from "./components/Gallery";
-import {Route, Routes, Navigate} from "react-router-dom";
-import {MyPhotos} from "./components/MyPhotos";
-import {useAuthContext} from "./context/AuthContext";
-import {useEffect} from "react";
-import ImagePage from "./components/ImagePage";
+import { Route, Routes, Navigate } from "react-router-dom";
+import { MyPhotos } from "./pages/MyPhotos";
+import { useAuthContext } from "./context/AuthContext";
+import { useEffect } from "react";
 
-//render={(props) => <ImagePage {...props} userData={props.userData}/>
+import Gallery from "./pages/Gallery";
+import ImagePage from "./pages/ImagePage";
 
 
 function App() {

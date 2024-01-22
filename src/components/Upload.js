@@ -2,19 +2,7 @@ import {memo, useContext, useMemo} from "react";
 import {Context} from "../context";
 import Storage from '../handlers/storage'
 import { addImage, getImages } from "../handlers/firestore";
-const Preview = ({path}) => {
-    return (
-        <div
-            className="rounded p-1 m-5"
-            style={{
-                width: "30%",
-                height: "300px",
-                backgroundImage: `url(${path}`,
-                backgroundSize: "cover",
-            }}
-        ></div>
-    );
-};
+import { Preview } from "./ui/Preview";
 
 const UploadForm = ({ userId }) => {
     const {state, dispatch} = useContext(Context)

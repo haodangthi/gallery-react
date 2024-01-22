@@ -1,4 +1,4 @@
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Card({ item }) {
     const navigate = useNavigate()
@@ -17,7 +17,7 @@ function Card({ item }) {
                     <h5 className="card-title">{item.title}</h5>
                     <Link
                         className="btn btn-primary"
-                        to={`image/${item.id}`} userData={item} >Go to Image page</Link>
+                        to={`image/${item.id}`} >Go to Image page</Link>
                 </div>
             </div>
         </div>

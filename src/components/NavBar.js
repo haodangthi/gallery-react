@@ -1,6 +1,8 @@
 import { useAuthContext } from "../context/AuthContext";
 import { memo } from "react";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { SearchForm } from "./SearchForm";
+import { Dropdown } from "./ui/Dropdown";
 
 function Navigation() {
     const { currentUser } = useAuthContext()
@@ -29,38 +31,6 @@ function Navigation() {
     )
 }
 
-function SearchForm() {
-    return (
-        <form className="d-flex" role="search">
-            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-            <button className="btn btn-outline-success" type="submit">Search</button>
-        </form>
-    );
-}
-
-function Dropdown() {
-    const { currentUser } = useAuthContext()
-    return (
-        <ul className="dropdown-menu login-dropdown-menu">
-            { currentUser && <>
-                <li><a className="dropdown-item" href="#">{currentUser.displayName}</a></li><li>
-                <hr className="dropdown-divider"/>
-            </li>
-            </> }
-            <LoginButton/>
-        </ul>
-    );
-}
-
-function LoginButton() {
-    const { currentUser, login, logout } = useAuthContext()
-
-    if (currentUser) {
-        return (<button className="btn btn-primary ml-2" onClick={logout}>Log Out</button>)
-    }
-
-    return (<button className="btn btn-primary ml-2" onClick={login}>Log In</button>)
-}
 function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
